@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ScentCare Price List</title>
+    <title>ScentCare Sales Tool</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -37,18 +37,24 @@
     <div class="nav-btn" onclick="showCat('Fragrance', this)"><i class="bi bi-droplet"></i><span>น้ำหอม</span></div>
 </div>
 <script>
-    // ข้อมูลสินค้าจากไฟล์ที่คุณให้มา
     const products = [
-        { cat: 'Machine', group: 'เครื่องหอม', name: 'PIEXO', detail: 'พร้อมน้ำหอม 120 ml. & ถ่าน 4 ก้อน', std: '3,750', promo: '2,590' },
-        { cat: 'Machine', group: 'เครื่องหอม', name: 'KODO VASE LUX', detail: 'พร้อมน้ำหอม 15 ml. & Alcohol 15 ml.', std: '3,200', promo: '2,490' },
-        { cat: 'Machine', group: 'เครื่องหอม', name: 'KODO RADAR X', detail: 'พร้อมน้ำหอม 50 ml.', std: '5,200', promo: '4,390' },
-        { cat: 'Fragrance', group: 'น้ำหอม: Standard', name: 'น้ำหอม 100 ml.', detail: 'Standard Line', std: '1,600', promo: '1,300' },
-        { cat: 'Fragrance', group: 'น้ำหอม: Premium', name: 'น้ำหอม 100 ml.', detail: 'Premium Line', std: '1,800', promo: '1,500' }
+        { cat: 'Machine', group: 'Set เครื่องกระจายกลิ่น', name: 'PIEXO', detail: 'แถมน้ำหอม 120ml + ถ่าน 4 ก้อน', std: '3,750', promo: '2,590' },
+        { cat: 'Machine', group: 'Set เครื่องกระจายกลิ่น', name: 'KODO VASE LUX', detail: 'แถมน้ำหอม 15ml + แอลกอฮอล์ 15ml', std: '3,200', promo: '2,490' },
+        { cat: 'Machine', group: 'Set เครื่องกระจายกลิ่น', name: 'KODO 30 LUX', detail: 'แถมน้ำหอม 100ml', std: '4,800', promo: '3,680' },
+        { cat: 'Machine', group: 'Set เครื่องกระจายกลิ่น', name: 'KODO RADAR X', detail: 'แถมน้ำหอม 50ml', std: '5,200', promo: '4,390' },
+        { cat: 'Machine', group: 'Set เครื่องกระจายกลิ่น', name: 'KODO AIR2', detail: 'แถมน้ำหอม 100ml', std: '6,600', promo: '4,890' },
+        { cat: 'Machine', group: 'Set เครื่องกระจายกลิ่น', name: 'KODO 100 PREMIUM', detail: 'แถมน้ำหอม 50ml', std: '7,200', promo: '5,990' },
+        { cat: 'Fragrance', group: 'น้ำหอม Essence', name: 'Fragrance 100ml', detail: 'Essence Line', std: '1,400', promo: '990' },
+        { cat: 'Fragrance', group: 'น้ำหอม Essence', name: 'Fragrance 500ml', detail: 'Essence Line', std: '4,900', promo: '3,990' },
+        { cat: 'Fragrance', group: 'น้ำหอม Standard', name: 'Fragrance 100ml', detail: 'Standard Line', std: '1,600', promo: '1,300' },
+        { cat: 'Fragrance', group: 'น้ำหอม Standard', name: 'Fragrance 500ml', detail: 'Standard Line', std: '5,600', promo: '4,500' },
+        { cat: 'Fragrance', group: 'น้ำหอม Premium', name: 'Fragrance 100ml', detail: 'Premium Line', std: '1,800', promo: '1,500' },
+        { cat: 'Fragrance', group: 'น้ำหอม Premium', name: 'Fragrance 500ml', detail: 'Premium Line', std: '6,200', promo: '5,000' }
     ];
 
     async function initLiff() {
-        // *** สำคัญ: นำ LIFF ID จากขั้นตอนที่ 4 มาใส่ที่นี่ ***
-        await liff.init({ liffId: "2009213220-wDKQcHXY" }); 
+        // *** ใส่ LIFF ID ของคุณที่นี่ ***
+        await liff.init({ liffId: "ใส่_LIFF_ID_ของคุณที่นี่" }); 
         if (!liff.isLoggedIn()) liff.login();
         renderList(products);
     }
@@ -93,6 +99,12 @@
         const filtered = cat === 'all' ? products : products.filter(p => p.cat === cat);
         renderList(filtered);
     }
+
+    document.getElementById('searchBox').addEventListener('input', function() {
+        const val = this.value.toLowerCase();
+        const filtered = products.filter(p => p.name.toLowerCase().includes(val) || p.group.toLowerCase().includes(val));
+        renderList(filtered);
+    });
 </script>
 </body>
 </html>
